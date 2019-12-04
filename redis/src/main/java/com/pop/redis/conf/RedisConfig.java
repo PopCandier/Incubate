@@ -33,21 +33,24 @@ public class RedisConfig {
         //序列化
         FastJsonRedisSerializer redisSerializer = new FastJsonRedisSerializer(Object.class);
         // value值的序列化采用fastJsonRedisSerializer
-        redisTemplate.setKeySerializer(redisSerializer);
-        redisTemplate.setHashKeySerializer(redisSerializer);
+//        redisTemplate.setKeySerializer(redisSerializer);
+//        redisTemplate.setHashKeySerializer(redisSerializer);
         // key的序列化采用StringRedisSerializer
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+
         redisTemplate.setValueSerializer(stringRedisSerializer);
         redisTemplate.setHashValueSerializer(stringRedisSerializer);
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         return redisTemplate;
     }
 
-    @Bean
+    @Bean(name = "lockScript")
     public DefaultRedisScript<Boolean> lockScript(){ return getScript(Boolean.class,"lua/lock/lock.lua"); }
-    @Bean
+    @Bean(name = "tryLockScript")
     public DefaultRedisScript<Boolean> tryLockScript(){ return getScript(Boolean.class,"lua/lock/tryLock.lua"); }
-    @Bean
+    @Bean(name = "unLockScript")
     public DefaultRedisScript<Boolean> unLockScript(){ return getScript(Boolean.class,"lua/lock/unLock.lua");}
 
     private DefaultRedisScript getScript(Class clazz,String url){

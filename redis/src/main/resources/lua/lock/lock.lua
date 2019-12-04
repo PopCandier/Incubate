@@ -15,7 +15,7 @@ else
         -- 存在的情况判断是否需要重入
         local cid=redis.call('hget',KEYS[1],'cid')
         local count=redis.call('hget',KEYS[1],'count')
-        if tonumber(cid)==ARGV[1] then
+        if tostring(cid)==ARGV[1] then
             redis.call('HINCRBY',KEYS[1],'count',1)
             return true
         elseif  tonumber(count)==0 then
