@@ -6,6 +6,7 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: incubate
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
 public class RedisDistLock implements IRedisLock{
 
     private static final String lockName = "distLock";
+    private static final String expireName = "distLockTime";
     private RedisTemplate redis;
     @Autowired
     private LuaLockScript script;
@@ -24,22 +26,20 @@ public class RedisDistLock implements IRedisLock{
         this.redis = redisTemplateIncubate;
     }
 
-    public boolean tryLock(String requestId){
-        return tryLock(requestId,5);
-    }
 
     @Override
-    public boolean tryLock(String requestId, long expireTime) {
-        return (boolean) redis.execute(script.getTryLockScript(),script.keys(lockName),requestId,String.valueOf(expireTime));
+    public boolean tryLock(String requestId) {
+        return (boolean) redis.execute(script.getTryLockScript(),script.keys(lockName,expireName),requestId);
     }
 
     public boolean lock(String requestId){
-        return lock(requestId,5);
+        return lock(requestId,2000);
     }
 
     @Override
     public boolean lock(String requestId, long expireTime) {
-        return (boolean) redis.execute(script.getLockScript(),script.keys(lockName),requestId,String.valueOf(expireTime));
+        long second = TimeUnit.MILLISECONDS.toSeconds(expireTime);
+        return (boolean) redis.execute(script.getLockScript(),script.keys(lockName,expireName),requestId,String.valueOf(expireTime),String.valueOf(second>1L?second:1));
     }
 
     @Override
