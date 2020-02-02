@@ -1,6 +1,7 @@
 package com.pop.ibatis.shardingibatis.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 public class Order implements Serializable {
     private static final long serialVersionUID = 1180708624961431032L;
     //订单编号
+    @TableId
     private Integer orderId;
     //订单名称
     private String orderName;

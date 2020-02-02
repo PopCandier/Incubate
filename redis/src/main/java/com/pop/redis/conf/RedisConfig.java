@@ -28,8 +28,8 @@ import org.springframework.scripting.support.ResourceScriptSource;
 public class RedisConfig {
 
     @Bean(name = "redisTemplateIncubate")
-    public RedisTemplate<Object,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<Object,Object> redisTemplate = new RedisTemplate();
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<Object, Object> redisTemplate = new RedisTemplate();
         //序列化
         FastJsonRedisSerializer redisSerializer = new FastJsonRedisSerializer(Object.class);
         // value值的序列化采用fastJsonRedisSerializer
@@ -47,19 +47,26 @@ public class RedisConfig {
     }
 
     @Bean(name = "lockScript")
-    public DefaultRedisScript<Boolean> lockScript(){ return getScript(Boolean.class,"lua/lock/lock.lua"); }
-    @Bean(name = "tryLockScript")
-    public DefaultRedisScript<Boolean> tryLockScript(){ return getScript(Boolean.class,"lua/lock/tryLock.lua"); }
-    @Bean(name = "unLockScript")
-    public DefaultRedisScript<Boolean> unLockScript(){ return getScript(Boolean.class,"lua/lock/unLock.lua");}
+    public DefaultRedisScript<Boolean> lockScript() {
+        return getScript(Boolean.class, "lua/lock/lock.lua");
+    }
 
-    private DefaultRedisScript getScript(Class clazz,String url){
+    @Bean(name = "tryLockScript")
+    public DefaultRedisScript<Boolean> tryLockScript() {
+        return getScript(Boolean.class, "lua/lock/tryLock.lua");
+    }
+
+    @Bean(name = "unLockScript")
+    public DefaultRedisScript<Boolean> unLockScript() {
+        return getScript(Boolean.class, "lua/lock/unLock.lua");
+    }
+
+    private DefaultRedisScript getScript(Class clazz, String url) {
         DefaultRedisScript<Boolean> script = new DefaultRedisScript<>();
         script.setResultType(clazz);
         script.setScriptSource(new ResourceScriptSource(new ClassPathResource(url)));
         return script;
     }
-
 
 
 }

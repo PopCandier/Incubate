@@ -13,7 +13,7 @@
     <select id="queryById" resultMap="OrderMap">
         select
           order_id, order_name, order_createtime, order_cost
-        from ibatis1.order_info where order_id = #{order_id}
+        from order_info where order_id = #{order_id}
     </select>
 
     <!--查询指定行数据-->

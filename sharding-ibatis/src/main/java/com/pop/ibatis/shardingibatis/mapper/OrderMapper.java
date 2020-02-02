@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Param;
 
 public interface OrderMapper extends BaseMapper<Order> {
 
-    @Sharding(type = ShardingType.TABLE,rule = "")
+    @Sharding(baseKey = "ibatis1")
     Order queryById(@Param("order_id") int id);
 }

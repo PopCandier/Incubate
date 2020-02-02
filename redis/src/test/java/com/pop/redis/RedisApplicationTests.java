@@ -36,6 +36,7 @@ class RedisApplicationTests {
     @Autowired
     private RedisDistLock lock;
     private Random random = new Random();
+
     @Test
     void lockTest() throws Exception {
 
@@ -59,15 +60,15 @@ class RedisApplicationTests {
 //            System.out.println("释放锁失败");
 //        }
 
-        for (int i = 0; i <50 ; i++) {
-            Thread t = new Thread(()->{
-                for(;;){
+        for (int i = 0; i < 50; i++) {
+            Thread t = new Thread(() -> {
+                for (; ; ) {
                     String currName = Thread.currentThread().getName();
-                    if(lock.tryLock(currName)){
+                    if (lock.tryLock(currName)) {
 //                        lock.lock(currName,2000);
-                        log.info(currName+ " 正在尝试获取...");
-                        if(lock.lock(currName,3000)){
-                            log.info(currName+" 获取锁成功");
+                        log.info(currName + " 正在尝试获取...");
+                        if (lock.lock(currName, 3000)) {
+                            log.info(currName + " 获取锁成功");
 //                            try {
 //                                TimeUnit.SECONDS.sleep(2);//模仿业务时间
 //                                //在这个时候，尝试重入
@@ -83,18 +84,18 @@ class RedisApplicationTests {
 //                                e.printStackTrace();
 //                            }
                             lock.unlock(currName);
-                            log.info(currName+" 释放锁成功");
+                            log.info(currName + " 释放锁成功");
                             break;
-                        }else{
-                            log.info(currName+" 获取锁失败，进入等待");
+                        } else {
+                            log.info(currName + " 获取锁失败，进入等待");
                             try {
                                 TimeUnit.SECONDS.sleep(random.nextInt(2));
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
-                    }else{
-                        log.info(currName+ " 尝试获取失败");
+                    } else {
+                        log.info(currName + " 尝试获取失败");
                         try {
                             TimeUnit.SECONDS.sleep(random.nextInt(2));
                         } catch (InterruptedException e) {
@@ -112,35 +113,35 @@ class RedisApplicationTests {
     @Test
     void lockTest0() throws Exception {
 
-        for (int i = 0; i <3 ; i++) {
-            Thread t = new Thread(()->{
-                String[] s = {"1号","2号","3号"};
-                for(;;){
+        for (int i = 0; i < 3; i++) {
+            Thread t = new Thread(() -> {
+                String[] s = {"1号", "2号", "3号"};
+                for (; ; ) {
 
                     String currName = Thread.currentThread().getName();
-                    if(lock.tryLock(currName)){
+                    if (lock.tryLock(currName)) {
 //                        lock.lock(currName,2000);
-                        log.info(currName+ " 正在尝试获取...");
-                        if(lock.lock(currName,3000)){
-                            log.info(currName+" 获取锁成功");
+                        log.info(currName + " 正在尝试获取...");
+                        if (lock.lock(currName, 3000)) {
+                            log.info(currName + " 获取锁成功");
                             try {
                                 TimeUnit.SECONDS.sleep(2);//模仿业务时间
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                             lock.unlock(currName);
-                            log.info(currName+" 释放锁成功");
+                            log.info(currName + " 释放锁成功");
                             break;
-                        }else{
-                            log.info(currName+" 获取锁失败，进入等待");
+                        } else {
+                            log.info(currName + " 获取锁失败，进入等待");
                             try {
                                 TimeUnit.SECONDS.sleep(random.nextInt(2));
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
-                    }else{
-                        log.info(currName+ " 尝试获取失败");
+                    } else {
+                        log.info(currName + " 尝试获取失败");
                         try {
                             TimeUnit.SECONDS.sleep(random.nextInt(2));
                         } catch (InterruptedException e) {
@@ -153,33 +154,33 @@ class RedisApplicationTests {
             t.start();
         }
 
-        for (int i = 0; i <3 ; i++) {
-            Thread t = new Thread(()->{
-                for(;;){
+        for (int i = 0; i < 3; i++) {
+            Thread t = new Thread(() -> {
+                for (; ; ) {
                     String currName = Thread.currentThread().getName();
-                    if(lock.tryLock(currName)){
+                    if (lock.tryLock(currName)) {
 //                        lock.lock(currName,2000);
-                        log.info(currName+ " 正在尝试获取...");
-                        if(lock.lock(currName,3000)){
-                            log.info(currName+" 获取锁成功");
+                        log.info(currName + " 正在尝试获取...");
+                        if (lock.lock(currName, 3000)) {
+                            log.info(currName + " 获取锁成功");
                             try {
                                 TimeUnit.SECONDS.sleep(2);//模仿业务时间
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                             lock.unlock(currName);
-                            log.info(currName+" 释放锁成功");
+                            log.info(currName + " 释放锁成功");
                             break;
-                        }else{
-                            log.info(currName+" 获取锁失败，进入等待");
+                        } else {
+                            log.info(currName + " 获取锁失败，进入等待");
                             try {
                                 TimeUnit.SECONDS.sleep(random.nextInt(2));
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
-                    }else{
-                        log.info(currName+ " 尝试获取失败");
+                    } else {
+                        log.info(currName + " 尝试获取失败");
                         try {
                             TimeUnit.SECONDS.sleep(random.nextInt(2));
                         } catch (InterruptedException e) {

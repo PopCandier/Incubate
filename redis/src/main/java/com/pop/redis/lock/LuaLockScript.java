@@ -14,7 +14,7 @@ import javax.annotation.Resource;
  **/
 @Component
 @Data
-public class LuaLockScript extends LuaScript{
+public class LuaLockScript extends LuaScript {
     @Resource(name = "lockScript")
     private DefaultRedisScript<Boolean> lockScript;
     @Resource(name = "tryLockScript")

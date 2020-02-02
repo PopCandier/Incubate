@@ -26,4 +26,10 @@ public @interface Sharding {
      */
     ShardingType type() default ShardingType.TABLE;
 
+    /**
+     * 数据库关键字
+     * @return
+     */
+    String baseKey() default "";
+
 }
