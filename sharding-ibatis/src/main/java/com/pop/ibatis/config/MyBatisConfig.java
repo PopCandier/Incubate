@@ -17,8 +17,8 @@ import java.util.Properties;
 public class MyBatisConfig {
 
     @Bean
-    public ShardingInterceptor shardingInterceptor(){
-        ShardingInterceptor shardingInterceptor = new ShardingInterceptor();
+    public ShardingInterceptor shardingInterceptor(ShardingDataSource shardingDataSource){
+        ShardingInterceptor shardingInterceptor = new ShardingInterceptor(shardingDataSource);
         Properties properties = new Properties();
         shardingInterceptor.setProperties(properties);
         return shardingInterceptor;

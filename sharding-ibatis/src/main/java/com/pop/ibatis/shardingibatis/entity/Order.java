@@ -18,7 +18,6 @@ import java.util.Date;
 public class Order implements Serializable {
     private static final long serialVersionUID = 1180708624961431032L;
     //订单编号
-    @TableId
     private Integer orderId;
     //订单名称
     private String orderName;
