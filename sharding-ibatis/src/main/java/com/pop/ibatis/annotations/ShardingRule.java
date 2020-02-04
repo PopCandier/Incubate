@@ -1,7 +1,6 @@
 package com.pop.ibatis.annotations;
 
 import com.pop.ibatis.annotations.enums.ShardingType;
-import com.pop.ibatis.core.key.DefaultKeyGenerator;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -39,6 +38,20 @@ public @interface ShardingRule {
      * @return
      */
     String fieldName() default "";
+
+    /**
+     * 当表不存时（只限于 insert 方法），是否使用数据库的某个表作为模版创建 {@link ShardingTable#name}<br/>
+     * 如未修饰，将会忽略该配置。<b>如果这个设置为true，{@link ShardingTable#name}必须设置模版名</b>
+     * @return
+     */
+    boolean fromTemplate() default false;
+
+    /**
+     * 当表不存在时 （只限于 insert 方法），是否使用 {@link ShardingTable#name} 修饰的
+     *  当某个字段 被{@link ShardingIgnoreField}修饰的时候，该字段将不会生成到数据库的字段里。
+     * @return
+     */
+    boolean fromEntity() default false;
 
 
 }

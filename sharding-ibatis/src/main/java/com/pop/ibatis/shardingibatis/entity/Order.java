@@ -2,6 +2,9 @@ package com.pop.ibatis.shardingibatis.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.pop.ibatis.annotations.ShardingTable;
+import com.pop.ibatis.annotations.ShardingTableField;
+import com.pop.ibatis.annotations.ShardingTableID;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,11 +18,14 @@ import java.util.Date;
  * 订单对象
  */
 @Data
+@ShardingTable(name="order_info")
 public class Order implements Serializable {
     private static final long serialVersionUID = 1180708624961431032L;
     //订单编号
+    @ShardingTableID
     private Integer orderId;
     //订单名称
+    @ShardingTableField(comment = "订单名称")
     private String orderName;
     //订单创建时间
     private Date orderCreatetime;

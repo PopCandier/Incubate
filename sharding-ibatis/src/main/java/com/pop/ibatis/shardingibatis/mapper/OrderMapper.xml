@@ -47,8 +47,8 @@
 
     <!--&lt;!&ndash;新增所有列&ndash;&gt;-->
     <insert id="save"  keyProperty="orderId"  useGeneratedKeys="true">
-        insert into order_info(order_id,order_name, order_createtime, order_cost)
-        values (#{orderId},#{orderName}, #{orderCreatetime}, #{orderCost})
+        insert into order_info(order_name, order_createtime, order_cost)
+        values (#{orderName}, #{orderCreatetime}, #{orderCost})
     </insert>
     <!--<insert id="save"  keyProperty="orderId"  useGeneratedKeys="true">-->
         <!--insert into order_info(order_name, order_createtime, order_cost)-->
