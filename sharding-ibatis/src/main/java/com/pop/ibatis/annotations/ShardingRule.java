@@ -51,7 +51,7 @@ public @interface ShardingRule {
      *  当某个字段 被{@link ShardingIgnoreField}修饰的时候，该字段将不会生成到数据库的字段里。
      * @return
      */
-    boolean fromEntity() default false;
+    boolean fromEntity() default true;
 
 
 }

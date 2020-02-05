@@ -31,8 +31,9 @@ public class ShardingDataSource extends AbstractRoutingDataSource {
 
     private List<DataSource> getDataSources(List<IBatisDataSource> dataSources){
         List<DataSource> sources = new ArrayList<>();
+        DruidDataSourceBuilder builder = DruidDataSourceBuilder.create();
         for (IBatisDataSource dataSource:dataSources) {
-            DruidDataSource d = DruidDataSourceBuilder.create().build();
+            DruidDataSource d = builder.build();
             d.setUrl(dataSource.getUrl());
             d.setUsername(dataSource.getUsername());
             d.setPassword(dataSource.getPassword());

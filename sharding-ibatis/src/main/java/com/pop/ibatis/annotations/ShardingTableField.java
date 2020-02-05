@@ -22,4 +22,16 @@ public @interface ShardingTableField {
      * @return
      */
     boolean isNull() default true;
+
+    /**
+     * 唯一键 名称
+     * @return
+     */
+    String unique() default "";
+
+    /**
+     * 普通索引 名称
+     * @return
+     */
+    String index() default "";
 }

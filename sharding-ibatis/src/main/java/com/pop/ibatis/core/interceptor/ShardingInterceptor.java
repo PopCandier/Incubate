@@ -52,13 +52,6 @@ public class ShardingInterceptor implements Interceptor {
      */
     private static Map<Class<?>,ShardingRoutRule> routRuleCache = new ConcurrentHashMap<>();
 
-
-
-    private ShardingDataSource shardingDataSource =null;
-    public ShardingInterceptor(ShardingDataSource shardingDataSource) {
-        this.shardingDataSource = shardingDataSource;
-    }
-
     private static Pattern pattern(String reg){return Pattern.compile(reg);}
 
     private static String afterCheckSql(String sql,String replaceSql){return StringUtils.isEmpty(replaceSql)?sql:replaceSql;}
@@ -86,10 +79,6 @@ public class ShardingInterceptor implements Interceptor {
 
     }
 
-    private static Function<Class,Field[]> mappingMethod(){
-        return clazz->clazz.getDeclaredFields();
-    }
-
     private static WuFunction<String,String,Pattern,ShardingRule,Object,String> delete(){
         return (sql,key,pattern,rule,entity)->"";
     }
@@ -115,14 +104,15 @@ public class ShardingInterceptor implements Interceptor {
             }
             // 查看关于生成表的配置
             Class entityClass = entity.getClass();
+            String createTableSql = "";
             if(rule.fromEntity()){
-                return CreateTableBuilder.build(entityClass,replaceTableName);
+                createTableSql = CreateTableBuilder.build(entityClass,replaceTableName);
             }
             if(rule.fromTemplate()){
                 // 从数据库模版
+                createTableSql = CreateTableBuilder.buildFromTemplate(entityClass,replaceTableName);
             }
-
-            return afterCheckSql(sql,replaceSql);
+            return createTableSql+afterCheckSql(sql,replaceSql);
         };
     }
 

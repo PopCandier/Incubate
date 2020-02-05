@@ -2,6 +2,7 @@ package com.pop.ibatis.shardingibatis.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.pop.ibatis.annotations.ShardingIgnoreField;
 import com.pop.ibatis.annotations.ShardingTable;
 import com.pop.ibatis.annotations.ShardingTableField;
 import com.pop.ibatis.annotations.ShardingTableID;
@@ -20,13 +21,18 @@ import java.util.Date;
 @Data
 @ShardingTable(name="order_info")
 public class Order implements Serializable {
+
+    @ShardingIgnoreField
     private static final long serialVersionUID = 1180708624961431032L;
     //订单编号
     @ShardingTableID
     private Integer orderId;
     //订单名称
-    @ShardingTableField(comment = "订单名称")
+    @ShardingTableField(comment = "订单名称",isNull = false,index = "idx_name")
     private String orderName;
+
+    @ShardingTableField(comment = "订单名称地址")
+    private String orderNameAddress;
     //订单创建时间
     private Date orderCreatetime;
     //订单总金额
