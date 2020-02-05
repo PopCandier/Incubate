@@ -75,4 +75,16 @@ public interface OrderMapper extends BaseMapper<Order> {
 
 
 
-目前insert 按照某个规范分表已经实现，但是由于重新构建了sqlSource，可能导致主键获取有些问题，无法自增长主键
+目前insert 按照某个规范分表已经实现，但是由于重新构建了sqlSource，可能导致主键获取有些问题，无法自增长主键。
+
+
+
+```java
+@Sharding(rule = {
+            @ShardingRule(type = ShardingType.TABLE, routRule = ShardingDateRoutRule.class,
+                    fieldName = "orderCreatetime",fromEntity = true,fromTemplate = false)
+    },baseKey = "ibatis1")
+    int save(Order order1);
+```
+
+假设这是你所使用的注解。
