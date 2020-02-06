@@ -44,7 +44,7 @@ public class CreateTableBuilder {
     private static final String COMMA = ",";
     private static final String QUO_ = "'";
     private static final String SEMI = ";";
-    private static final String SEM = "));";
+    private static final String SEM = ");";
     private static final String HOLDER = "?";
     private static final String UNDERLINE = "_";
     private static final String SPACE = " ";
@@ -121,7 +121,7 @@ public class CreateTableBuilder {
             }
         }
         //去掉最后一个逗号
-        return findSql.substring(0,findSql.lastIndexOf(COMMA)-1)+SEM;
+        return findSql.substring(0,findSql.lastIndexOf(COMMA))+SEM;
     }
 
     private static String getRealTableName(String target){

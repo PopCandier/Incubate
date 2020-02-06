@@ -28,7 +28,7 @@ public class Order implements Serializable {
     @ShardingTableID
     private Integer orderId;
     //订单名称
-    @ShardingTableField(comment = "订单名称",isNull = false,index = "idx_name")
+    @ShardingTableField(comment = "订单名称",isNull = false)
     private String orderName;
 
     @ShardingTableField(comment = "订单名称地址")

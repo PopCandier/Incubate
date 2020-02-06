@@ -25,7 +25,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     @Sharding(rule = {
             @ShardingRule(type = ShardingType.TABLE, routRule = ShardingDateRoutRule.class,
-                    fieldName = "orderCreatetime",fromEntity = true,fromTemplate = false)
+                    fieldName = "orderCreatetime",fromEntity = false,fromTemplate = true)
     },baseKey = "ibatis1")
     int save(Order order1);
 }
