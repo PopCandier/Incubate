@@ -19,6 +19,7 @@ import java.util.*;
 public class ShardingDataSource extends AbstractRoutingDataSource {
 
     private static final ThreadLocal<String> DATASOURCE_HOLDER = new ThreadLocal<>();
+    private static final DruidDataSourceBuilder BUILDER = DruidDataSourceBuilder.create();
 
     public ShardingDataSource(ShardingDataConfig config){
         List<DataSource> dataSources = getDataSources(config.getDataSources());
@@ -31,9 +32,8 @@ public class ShardingDataSource extends AbstractRoutingDataSource {
 
     private List<DataSource> getDataSources(List<IBatisDataSource> dataSources){
         List<DataSource> sources = new ArrayList<>();
-        DruidDataSourceBuilder builder = DruidDataSourceBuilder.create();
         for (IBatisDataSource dataSource:dataSources) {
-            DruidDataSource d = builder.build();
+            DruidDataSource d = BUILDER.build();
             d.setUrl(dataSource.getUrl());
             d.setUsername(dataSource.getUsername());
             d.setPassword(dataSource.getPassword());
