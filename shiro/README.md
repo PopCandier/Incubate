@@ -91,13 +91,13 @@ public class UserRealm extends AuthorizingRealm {
 
 #### AuthenticationToken
 
-![1581596618444](D:\typoraimg\1581596618444.png)
+![1581596618444](./img/1581596618444.png)
 
 只是一个认证的对象，里面封住了一些简单的字符串信息，可以是密匙也可以是用户名密码
 
 #### AuthenticationInfo
 
-![1581596773429](D:\typoraimg\1581596773429.png)
+![1581596773429](./img/1581596773429.png)
 
 
 
@@ -109,7 +109,7 @@ AuthenticationInfo 有两个作用：
 
 #### PrincipalCollection
 
-![1581596822422](D:\typoraimg\1581596822422.png)
+![1581596822422](./img/1581596822422.png)
 
 因为我们可以在 Shiro 中同时配置多个 Realm，所以呢身份信息可能就有多个；因此其提供 了PrincipalCollection 用于聚合这些身份信息： 
 
@@ -266,9 +266,9 @@ Runnable associateWith(Runnable runnable);
 -->
 ```
 
-![1581606695266](D:\typoraimg\1581606695266.png)
+![1581606695266](./img/1581606695266.png)
 
-![1581606714362](D:\typoraimg\1581606714362.png)
+![1581606714362](./img/1581606714362.png)
 
 ```xml
 <shiro:hasPermission name="user:create"> 
