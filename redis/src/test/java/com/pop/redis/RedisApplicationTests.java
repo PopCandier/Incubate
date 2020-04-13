@@ -38,6 +38,14 @@ class RedisApplicationTests {
     private Random random = new Random();
 
     @Test
+    void serializeObject(){
+//        User user = new User("Pop");
+        redis.set("pop2".getBytes(),"123".getBytes());
+        User user1= (User) redis.get("pop2");
+        System.out.println(user1);
+    }
+
+    @Test
     void lockTest() throws Exception {
 
 //        if(lock.tryLock("123")){
